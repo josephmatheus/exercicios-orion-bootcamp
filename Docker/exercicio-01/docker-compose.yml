@@ -1,0 +1,9 @@
+services:
+  exercicio-01:
+    build: .
+    container_name: exercicio-01
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
