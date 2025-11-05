@@ -1,0 +1,65 @@
+services:
+  exercicio-extra-db:
+    image: postgres:alpine
+    container_name: exercicio-extra-db
+    restart: always
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - exercicio-extra-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  exercicio-extra-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: exercicio-extra-api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - PORT=3000
+    volumes:
+      - ./api/src:/app/src
+    depends_on:
+      exercicio-extra-db:
+        condition: service_healthy
+    networks:
+      - exercicio-extra-network
+  
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: exercicio-extra-pgadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    networks:
+      - exercicio-extra-network
+    depends_on:
+      - exercicio-extra-db
+
+volumes:
+  db_data:
+    name: exercicio-extra-db-data
+
+networks:
+  exercicio-extra-network:
+    name: exercicio-extra-network
+    driver: bridge
