@@ -1,0 +1,7 @@
+data/
+mongo_data/
+*.log
+*.tmp
+*.cache
+.gitignore
+
