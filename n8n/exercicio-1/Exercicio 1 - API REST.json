@@ -1,0 +1,348 @@
+{
+  "name": "Exercicio 1 - API REST",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# Exercício 1\n\n**Desenvolver um conjunto de endpoints REST para realizar operações de CRUD**\n\n- Criação\n- Leitura\n- Atualização\n- Exclusão\n\n**Os dados devem ser armazenados e gerenciados em uma planilha, contendo as seguintes colunas**\n\n- Id\n- Nome \n- Custo\n- Categoria.\n\n**ID Planilha** -> 1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s",
+        "height": 592,
+        "width": 512,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        -464
+      ],
+      "typeVersion": 1,
+      "id": "ff4cdb32-a697-4415-94bb-6fa03708aa05",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        800,
+        -224
+      ],
+      "id": "a792e28e-bd0d-4d30-84dc-3cf2f096b6d1",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Produtos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        -224
+      ],
+      "id": "2a398118-85ff-41b0-91fc-92a3dbc2b21e",
+      "name": "READ - Get row(s) in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "iLONV01On1n70oAB",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Produtos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "7",
+            "nome": "Calça Jeans",
+            "custo": "301",
+            "categoria": "Roupas"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "custo",
+              "displayName": "custo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "categoria",
+              "displayName": "categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        -432
+      ],
+      "id": "1898c7c1-b3f8-431b-aecb-8bf2e5b9e937",
+      "name": "CREATE - Append or update row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "iLONV01On1n70oAB",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        368,
+        -128
+      ],
+      "id": "0cb8dfae-709e-4e44-b0f7-e5d4e7909439",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Produtos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "2",
+            "custo": "15"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "custo",
+              "displayName": "custo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "categoria",
+              "displayName": "categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        -32
+      ],
+      "id": "a2ca8b87-7fe6-41a1-97d5-5da28ce80af3",
+      "name": "UPDATE - Update row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "iLONV01On1n70oAB",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "delete",
+        "documentId": {
+          "__rl": true,
+          "value": "1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Produtos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1T1S37lvBzGtYXdfbwNzJHAdD2LlO7PhTNRDpUmt8r3s/edit#gid=0"
+        },
+        "startIndex": 3
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        176
+      ],
+      "id": "d1d067c0-7846-46a5-8483-cb447687a31c",
+      "name": "DELETE - Delete rows or columns from sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "iLONV01On1n70oAB",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "READ - Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "UPDATE - Update row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "READ - Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CREATE - Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "DELETE - Delete rows or columns from sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UPDATE - Update row in sheet": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "da5caf36-9c29-44a8-bee4-ea90ff63cafa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "17576d04a48f54985c12ebc1d2b2cfafcb6d27445b37136e1fd9c012527b9a9e"
+  },
+  "id": "lQinKnknSwZvhN2j",
+  "tags": []
+}
