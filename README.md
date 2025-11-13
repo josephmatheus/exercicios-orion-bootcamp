@@ -26,6 +26,11 @@ Bem-vindo ao repositório de exercícios do Orion Bootcamp! Este repositório co
 - [**Exercício 01**](flowise/exercicio-1/README.md) - Document Stores (Qdrant)
 - [**Exercício 02**](flowise/exercicio-2/README.md) - Fluxo Condicional com 3 Agentes
 
+### 🔄 N8N
+
+- [**Exercício 01**](n8n/exercicio-1/README.md) - API REST
+- [**Exercício 02**](n8n/exercicio-2/README.md) - Gerador de figurinha
+
 ---
 
 ## 🎯 Sobre o Orion Bootcamp
